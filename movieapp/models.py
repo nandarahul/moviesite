@@ -24,7 +24,11 @@ class Movie(models.Model):
     imdb_rating = models.FloatField()
 
     def asDict(self):
-        return {"name":self.name, "release_year":self.release_year, "imdb_rating":self.imdb_rating}
+        return {"name": self.name, "release_year": self.release_year, "imdb_rating": self.imdb_rating,
+                "genre": self.genre.name,
+                "actors": [{"id": a.id, "name": a.name} for a in self.actors.all()],
+                "directors": [{"id": d.id, "name": d.name} for d in self.directors.all()]
+               }
 
 
 

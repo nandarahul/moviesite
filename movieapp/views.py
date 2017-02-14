@@ -82,14 +82,14 @@ def get_top_rated(request):
                 return JsonResponse({"message":message})
             else:
                 m = m.filter(genre__name=genre_name)
-        m = m.order_by('imdb_rating')
+        m = m.order_by('-imdb_rating')
         if limit:
-            m = m[:int(limit)]
+            m = m[:limit]
         movies = [mv.asDict() for mv in m]
         return JsonResponse({"movies": movies})
     else:
         message = "Not a GET request. Can't get top rated movies."
-    message_dict = {"message":message}
+    message_dict = {"message": message}
     return JsonResponse(message_dict)
 
 
